@@ -16,27 +16,37 @@ public class PlayerShooting : MonoBehaviour
     {
         if (triple)
         {
-            Spawn(0f); Spawn(-15f); Spawn(15f);
+            // 2 viên cạnh không homing
+            Spawn(-15f, homing: false);
+            // viên giữa homing
+            Spawn(  0f, homing: true);
+            // viên phải không homing
+            Spawn( 15f, homing: false);
         }
         else
         {
-            Spawn(0f);
+            // single-shot luôn homing
+            Spawn(0f, homing: true);
         }
     }
 
-    void Spawn(float angle)
+    void Spawn(float angle, bool homing)
     {
-        var b = Instantiate(bulletPrefab, shootPoint.position, Quaternion.Euler(0,0,angle));
-        b.GetComponent<HomingBullet>().Initialize(baseDamage * damageMult, pierce);
+        var b = Instantiate(bulletPrefab, shootPoint.position, Quaternion.Euler(0, 0, angle));
+        b.GetComponent<HomingBullet>()
+            .Initialize(baseDamage * damageMult, pierce, homing);
     }
 
     public void ApplyUpgrade(UpgradeOptionSO.UpgradeType type, float value = 0f)
     {
         switch (type)
         {
-            case UpgradeOptionSO.UpgradeType.Pierce:      pierce = true;      break;
-            case UpgradeOptionSO.UpgradeType.TripleShot:  triple = true;      break;
-            case UpgradeOptionSO.UpgradeType.DamageUp:    damageMult += value;break;
+            case UpgradeOptionSO.UpgradeType.Pierce:
+                pierce = true; break;
+            case UpgradeOptionSO.UpgradeType.TripleShot:
+                triple = true; break;
+            case UpgradeOptionSO.UpgradeType.DamageUp:
+                damageMult += value; break;
         }
     }
 }

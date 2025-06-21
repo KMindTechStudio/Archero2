@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+using TMPro;
 public class UpgradeManager : MonoBehaviour
 {
     [Header("Scriptable Options")]
@@ -11,7 +11,7 @@ public class UpgradeManager : MonoBehaviour
     public GameObject panel;
     public Button[] buttons;
     public Image[] icons;
-    public Text[] names, descs;
+    public TMP_Text[] names, descs;
 
     private List<UpgradeOptionSO> choices = new List<UpgradeOptionSO>();
 
