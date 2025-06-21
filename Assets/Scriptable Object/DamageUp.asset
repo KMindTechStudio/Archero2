@@ -9,7 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d7fd9488000d3734a9e00ee676215985, type: 3}
-  m_Name: DefaultVolumeProfile
+  m_Script: {fileID: 11500000, guid: 8ccc931aa3322b24c804219bbc53d774, type: 3}
+  m_Name: DamageUp
   m_EditorClassIdentifier: 
-  components: []
+  skillName: Damage Up
+  description: "T\u0103ng 20% s\xE1t th\u01B0\u01A1ng m\u1ED7i vi\xEAn"
+  icon: {fileID: 0}
+  type: 2
+  value: 0
