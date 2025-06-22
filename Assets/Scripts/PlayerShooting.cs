@@ -3,50 +3,82 @@ using UnityEngine;
 public class PlayerShooting : MonoBehaviour
 {
     public static PlayerShooting Instance;
-    public GameObject bulletPrefab;
-    public Transform shootPoint;
-    public float baseDamage = 10f;
 
-    bool pierce, triple;
-    float damageMult = 1f;
+    [Header("Setup")]
+    public GameObject Prefab_Bullet_Player; 
+    public Transform shootPoint; 
+    public float baseDamage  = 10f;
+    public float spreadAngle = 15f;
 
-    void Awake() => Instance = this;
+    // internal state
+    private bool  _pierce;
+    private bool  _triple;
+    private float _damageMult = 1f;
+
+    void Awake()
+    {
+        Instance = this;
+    }
 
     public void Shoot()
     {
-        if (triple)
+        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+        if (enemies.Length == 0) return;
+        
+        Transform nearest = enemies[0].transform;
+        float minDist = Vector2.Distance(shootPoint.position, nearest.position);
+
+        for (int i = 1; i < enemies.Length; i++)
         {
-            // 2 viên cạnh không homing
-            Spawn(-15f, homing: false);
-            // viên giữa homing
-            Spawn(  0f, homing: true);
-            // viên phải không homing
-            Spawn( 15f, homing: false);
+            float d = Vector2.Distance(shootPoint.position, enemies[i].transform.position);
+            if (d < minDist)
+            {
+                minDist = d;
+                nearest = enemies[i].transform;
+            }
+        }
+        Vector2 baseDir = ((Vector2)nearest.position - (Vector2)shootPoint.position).normalized;
+        if (_triple)
+        {
+            SpawnAtDirection(Rotate(baseDir, -spreadAngle));
+            SpawnAtDirection(baseDir);
+            SpawnAtDirection(Rotate(baseDir, +spreadAngle));
         }
         else
         {
-            // single-shot luôn homing
-            Spawn(0f, homing: true);
+            SpawnAtDirection(baseDir);
         }
     }
-
-    void Spawn(float angle, bool homing)
+    private void SpawnAtDirection(Vector2 dir)
     {
-        var b = Instantiate(bulletPrefab, shootPoint.position, Quaternion.Euler(0, 0, angle));
-        b.GetComponent<HomingBullet>()
-            .Initialize(baseDamage * damageMult, pierce, homing);
+        var b = Instantiate(Prefab_Bullet_Player, shootPoint.position, Quaternion.identity);
+        var sb = b.GetComponent<StraightBullet>();
+        sb.Initialize(baseDamage * _damageMult, _pierce, dir);
     }
+    
+    private Vector2 Rotate(Vector2 v, float deg)
+    {
+        float rad = deg * Mathf.Deg2Rad;
+        float ca  = Mathf.Cos(rad);
+        float sa  = Mathf.Sin(rad);
+        return new Vector2(v.x * ca - v.y * sa,
+            v.x * sa + v.y * ca);
+    }
+
 
     public void ApplyUpgrade(UpgradeOptionSO.UpgradeType type, float value = 0f)
     {
         switch (type)
         {
             case UpgradeOptionSO.UpgradeType.Pierce:
-                pierce = true; break;
+                _pierce = true;
+                break;
             case UpgradeOptionSO.UpgradeType.TripleShot:
-                triple = true; break;
+                _triple = true;
+                break;
             case UpgradeOptionSO.UpgradeType.DamageUp:
-                damageMult += value; break;
+                _damageMult += value;
+                break;
         }
     }
 }

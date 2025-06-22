@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8437644809494452848}
   - component: {fileID: 727499250184043774}
   - component: {fileID: 1595585154692285640}
-  - component: {fileID: 6923137623591944873}
+  - component: {fileID: 3135578124330054796}
   m_Layer: 0
   m_Name: Prefab_Bullet_Player
   m_TagString: Untagged
@@ -135,7 +135,7 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &6923137623591944873
+--- !u!114 &3135578124330054796
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -144,10 +144,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1494775538283364116}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8b09588c91a504c4aa193ac49aa35b16, type: 3}
+  m_Script: {fileID: 11500000, guid: fd3f012dd649cc2478cb8cf65eb89e0e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 0
   canPierce: 0
-  speed: 5
-  rotateSpeed: 200
+  speed: 8
