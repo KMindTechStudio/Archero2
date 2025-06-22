@@ -19,6 +19,9 @@ public class UpgradeOptionSO : ScriptableObject
     {
         Pierce,     
         TripleShot, 
-        DamageUp 
+        DamageUp ,
+        OrbsOrbit ,     // skill 1
+        PetCompanion,   // skill 2
+        LaserShot       // skill 3
     }
 }

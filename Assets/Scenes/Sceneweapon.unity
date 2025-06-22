@@ -276,6 +276,8 @@ MonoBehaviour:
   shootPoint: {fileID: 2003750274}
   baseDamage: 10
   spreadAngle: 15
+  orbPrefab: {fileID: 1937832277248858671, guid: dd3db59d1a700b14da1c625c0ab6e658, type: 3}
+  laserPrefab: {fileID: 216756337784198583, guid: f78bb108e159f3d4c998ad7a784a9fe5, type: 3}
 --- !u!212 &244205809
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1886,8 +1888,10 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 7c54992df8f987949a82e3999e7a0bc3, type: 2}
   - {fileID: 11400000, guid: 1ac747b351cb7b745ae7f49021dec4c6, type: 2}
   - {fileID: 11400000, guid: 2c3b143f0c9a89c4e8d28893ea818223, type: 2}
-  UpgradePanel: {fileID: 1109591879}
-  Option:
+  - {fileID: 11400000, guid: 6a54b3d60937a82458a6fe94e315f9b3, type: 2}
+  - {fileID: 11400000, guid: a94a65aea941bac4cb3e484fd44617b7, type: 2}
+  panel: {fileID: 1109591879}
+  buttons:
   - {fileID: 310878262}
   - {fileID: 1403822214}
   - {fileID: 198598634}

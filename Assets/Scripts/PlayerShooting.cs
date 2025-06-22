@@ -9,8 +9,9 @@ public class PlayerShooting : MonoBehaviour
     public Transform shootPoint; 
     public float baseDamage  = 10f;
     public float spreadAngle = 15f;
-
-    // internal state
+    
+    public GameObject orbPrefab;
+    public GameObject laserPrefab;
     private bool  _pierce;
     private bool  _triple;
     private float _damageMult = 1f;
@@ -78,6 +79,20 @@ public class PlayerShooting : MonoBehaviour
                 break;
             case UpgradeOptionSO.UpgradeType.DamageUp:
                 _damageMult += value;
+                break;
+            case UpgradeOptionSO.UpgradeType.OrbsOrbit:
+                var orbGO = new GameObject("Orbs");
+                orbGO.transform.SetParent(transform);
+                orbGO.transform.localPosition = Vector3.zero;
+                var oc = orbGO.AddComponent<OrbsController>();
+                oc.orbPrefab = orbPrefab;
+                break;
+            case UpgradeOptionSO.UpgradeType.LaserShot:
+                var laserGO = Instantiate(laserPrefab,
+                    shootPoint.position,
+                    shootPoint.rotation);
+                var laserComp = laserGO.GetComponent<LaserSprite>();
+                laserComp.shootPoint = shootPoint;
                 break;
         }
     }
